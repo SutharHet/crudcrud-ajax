@@ -1,7 +1,7 @@
 $(document).ready(() => {
   $(".putData").hide()
   
-  let url = "https://crudcrud.com/api/90370fdfd6a34b6c92fe2cd8fee46792/colors/"
+  let url = "https://crudcrud.com/api/5c75832c97f44cc388e7569911780ba5/colors/"
   
   let getData = () => {
     $(".colors").html("<tr><td>ID</td><td>Color</td><td>Hex</td></tr>");
@@ -24,13 +24,44 @@ $(document).ready(() => {
 
   getData()
 
+  let color = [
+    {
+      color: "red",
+      value: "#f00"
+    },
+    {
+      color: "green",
+      value: "#0f0"
+    },
+    {
+      color: "blue",
+      value: "#00f"
+    },
+    {
+      color: "cyan",
+      value: "#0ff"
+    },
+    {
+      color: "magenta",
+      value: "#f0f"
+    },
+    {
+      color: "yellow",
+      value: "#ff0"
+    },
+    {
+      color: "black",
+      value: "#000"
+    }
+  ]
+
   let postData = (dataObj) => {
     obj = {
       type: "POST",
       url: url,
       headers: {"content-type": "application/json; charset=utf-8"},
       data: JSON.stringify(dataObj),
-      success: (data) => {
+      sucess: ()=>{
         getData()
       },
       error: () => {
@@ -40,6 +71,10 @@ $(document).ready(() => {
     }
     $.ajax(obj)
   }
+
+  // for(let i=0; i<color.length;i++){
+  //   postData(color[i])
+  // }
 
   $(".postBtn").on("click",() => {
     let postColor = $("#postColor").val()
@@ -55,7 +90,7 @@ $(document).ready(() => {
     obj = {
       type: "DELETE",
       url: url+dataId,
-      success: (data) => {
+      success: ()=>{
         getData()
       },
       error: () => {
@@ -71,7 +106,7 @@ $(document).ready(() => {
       url: url+dataId,
       headers: {"content-type": "application/json; charset=utf-8"},
       data: JSON.stringify(dataObj),
-      success: () => {
+      success: ()=>{
         getData()
       },
       error: () => {
@@ -84,11 +119,11 @@ $(document).ready(() => {
   }
 
   let putOp = (dataId) => {
-    $(".putData").show(2000)
+    $(".putData").show(1000)
     obj = {
       type: "GET",
       url: url+dataId,
-      success: (data) => {
+      success: (data)=>{
         $("#putId").val(data._id)
         $("#putColor").val(data.color)
         $("#putHex").val(data.value)
@@ -113,7 +148,7 @@ $(document).ready(() => {
     putData(dataId,dataObj)
   })
   
-  $("button").on("click", (event) => {
+  $('.colors').on('click', 'button', () => { 
     let id = event.target.id
     let op = id.substr(0,3)
     id = id.substr(3)
@@ -124,5 +159,4 @@ $(document).ready(() => {
       putOp(id)
     }
   })
-
 })
