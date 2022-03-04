@@ -61,7 +61,7 @@ $(document).ready(() => {
       url: url,
       headers: {"content-type": "application/json; charset=utf-8"},
       data: JSON.stringify(dataObj),
-      sucess: ()=>{
+      success: ()=>{
         getData()
       },
       error: () => {
